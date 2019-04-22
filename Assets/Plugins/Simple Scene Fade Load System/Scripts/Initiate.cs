@@ -14,7 +14,7 @@ public static class Initiate
             return;
         }
 
-        GameObject init = new GameObject();
+        var init = new GameObject();
         init.name = "Fader";
         Canvas myCanvas = init.AddComponent<Canvas>();
         myCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -24,6 +24,7 @@ public static class Initiate
 
         Fader scr = init.GetComponent<Fader>();
         scr.fadeDamp = multiplier;
+        scr.fadeSceneIndex = null;
         scr.fadeScene = scene;
         scr.fadeColor = col;
         scr.start = true;
@@ -32,7 +33,33 @@ public static class Initiate
         
     }
 
-    public static void DoneFading() {
+	public static void Fade(int scene, Color col, float multiplier)
+	{
+		if (areWeFading)
+		{
+			Debug.Log("Already Fading");
+			return;
+		}
+
+		GameObject init = new GameObject();
+		init.name = "Fader";
+		Canvas myCanvas = init.AddComponent<Canvas>();
+		myCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+		init.AddComponent<Fader>();
+		init.AddComponent<CanvasGroup>();
+		init.AddComponent<Image>();
+
+		Fader scr = init.GetComponent<Fader>();
+		scr.fadeDamp = multiplier;
+		scr.fadeSceneIndex = scene;
+		scr.fadeColor = col;
+		scr.start = true;
+		areWeFading = true;
+		scr.InitiateFader();
+
+	}
+
+	public static void DoneFading() {
         areWeFading = false;
     }
 }

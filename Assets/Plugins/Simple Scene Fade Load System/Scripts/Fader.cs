@@ -11,6 +11,8 @@ public class Fader : MonoBehaviour
     public float fadeDamp = 0.0f;
     [HideInInspector]
     public string fadeScene;
+	[HideInInspector]
+    public int? fadeSceneIndex;
     [HideInInspector]
     public float alpha = 0.0f;
     [HideInInspector]
@@ -75,7 +77,12 @@ public class Fader : MonoBehaviour
             {
                 //Fade in
                 alpha = newAlpha(coDelta, 1, alpha);
-                if (alpha == 1 && !startedLoading)
+				if (fadeSceneIndex != null)
+				{
+					startedLoading = true;
+					SceneManager.LoadScene(fadeSceneIndex.Value);
+				}
+                else if (alpha == 1 && !startedLoading)
                 {
                     startedLoading = true;
                     SceneManager.LoadScene(fadeScene);
