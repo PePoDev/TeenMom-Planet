@@ -10,40 +10,39 @@ public class PagesController : MonoBehaviour
 	public Sprite spritedisablePageActive;
 
 	private Animator animator;
-	private int pageIdx;
+	private int currentPageIdx;
 
 	private void Start()
 	{
-		pageIdx = 0;
+		currentPageIdx = 0;
 		animator = GetComponent<Animator>();
 	}
 
 	public void SwitchPageRight()
 	{
-		if (pageIdx + 1 == statusPageActive.Length)
+		if (currentPageIdx + 1 == statusPageActive.Length)
 			return;
 
-		SwitchPage(pageIdx++);
+		SwitchPage(currentPageIdx + 2);
 	}
 
 	public void SwitchPageLeft()
 	{
-		if (pageIdx < 0)
+		if (currentPageIdx < 0)
 			return;
 
-		SwitchPage(pageIdx--);
+		SwitchPage(currentPageIdx - 2);
 	}
 
-	public void SwitchPage(int pageIdx)
+	public void SwitchPage(int newPageIdx)
 	{
-		if (this.pageIdx != pageIdx)
+		newPageIdx--;
+		if (currentPageIdx != newPageIdx)
 		{
-			animator.SetInteger("pageIdx", pageIdx);
-			this.pageIdx = pageIdx;
-			for (int i = 0; i < statusPageActive.Length; i++)
-			{
-				statusPageActive[i].sprite = pageIdx == i ? spriteEnablePageActive : spritedisablePageActive;
-			}
+			animator.SetInteger("pageIdx", newPageIdx + 1);
+			statusPageActive[currentPageIdx].sprite = spritedisablePageActive;
+			currentPageIdx = newPageIdx;
+			statusPageActive[newPageIdx].sprite = spriteEnablePageActive;
 		}
 	}
 }
