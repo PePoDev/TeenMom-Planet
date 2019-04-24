@@ -6,21 +6,39 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 	public float speed;
-	public Sprite Left ,Right;
+	public bool isControlable { get; set; } = true;
 
 	private Vector2 direction;
+	private SpriteRenderer sprite;
 	private Rigidbody2D rigid;
 
 	private void Start()
 	{
 		rigid = GetComponent<Rigidbody2D>();
+		sprite = GetComponent<SpriteRenderer>();
 	}
 
 	private void Update()
 	{
-		direction.x = Input.GetAxis("Horizontal");
-		direction.y = Input.GetAxis("Vertical");
+		if (isControlable)
+		{
+			direction.x = Input.GetAxis("Horizontal");
+			direction.y = Input.GetAxis("Vertical");
 
-		rigid.velocity = direction * speed * Time.deltaTime;
+			if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+			{
+				sprite.flipX = true;
+			}
+			else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+			{
+				sprite.flipX = false;
+			}
+
+			rigid.velocity = direction * speed;
+		}
+		else
+		{
+			rigid.velocity = Vector2.zero;
+		}
 	}
 }
