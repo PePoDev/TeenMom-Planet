@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public float speed;
+	public Sprite Left ,Right;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private Vector2 direction;
+	private Rigidbody2D rigid;
+
+	private void Start()
+	{
+		rigid = GetComponent<Rigidbody2D>();
+	}
+
+	private void Update()
+	{
+		direction.x = Input.GetAxis("Horizontal");
+		direction.y = Input.GetAxis("Vertical");
+
+		rigid.velocity = direction * speed * Time.deltaTime;
+	}
 }
