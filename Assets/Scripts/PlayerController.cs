@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 	public float speed;
-	public bool isControlable { get; set; } = true;
+	public bool isControlable { get; set; } = false;
 
 	private Vector2 direction;
 	private SpriteRenderer sprite;
