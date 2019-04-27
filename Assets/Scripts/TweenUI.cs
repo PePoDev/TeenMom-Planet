@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class TweenUI : MonoBehaviour
 {
-	public Vector2 TweenDirection;
-
 	public float TweenDistance;
 	public float TweenTime;
 
@@ -14,8 +12,7 @@ public class TweenUI : MonoBehaviour
 
 	private void Start()
 	{
-		thisObject = GetComponent<RectTransform>();
-		thisObject.DOAnchorPosX(TweenDirection.x * TweenDistance, TweenTime);
+		GetComponent<RectTransform>().DOAnchorPosX(TweenDistance, TweenTime);
 		StartCoroutine(DelayLoadNextScene());
 	}
 

@@ -77,7 +77,7 @@ public class Fader : MonoBehaviour
             {
                 //Fade in
                 alpha = newAlpha(coDelta, 1, alpha);
-				if (fadeSceneIndex != null)
+				if (alpha == 1 && fadeSceneIndex != null)
 				{
 					startedLoading = true;
 					SceneManager.LoadScene(fadeSceneIndex.Value);
