@@ -34,7 +34,13 @@ public class PlayerController : MonoBehaviour
 				sprite.flipX = false;
 			}
 
-			rigid.velocity = direction * speed;
+			var newSpeed = speed;
+			if (Input.GetKey(KeyCode.LeftShift))
+			{
+				newSpeed *= 3f;
+			}
+
+			rigid.velocity = direction * newSpeed;
 		}
 		else
 		{
